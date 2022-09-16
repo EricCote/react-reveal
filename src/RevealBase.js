@@ -7,7 +7,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from "react";
+import React from 'react';
 import {
   string,
   object,
@@ -18,7 +18,7 @@ import {
   oneOf,
   shape,
   element,
-} from "prop-types";
+} from 'prop-types';
 import {
   namespace,
   ssr,
@@ -30,7 +30,7 @@ import {
   fadeOutEnabled,
   observerMode,
   raf,
-} from "./lib/globals";
+} from './lib/globals';
 //import Step from './lib/Step';
 //import throttle from './lib/throttle';
 
@@ -79,7 +79,7 @@ const inOut = shape({
   defaultProps = {
     fraction: 0.2,
     //when: true,
-    refProp: "ref",
+    refProp: 'ref',
     //margin: 0,
   },
   //,
@@ -135,7 +135,7 @@ class RevealBase extends React.Component {
     if (this.props.innerRef) this.props.innerRef(node);
     if (this.el !== node) {
       //probably redundant check
-      this.el = node && "offsetHeight" in node ? node : undefined;
+      this.el = node && 'offsetHeight' in node ? node : undefined;
       this.observe(this.props, true);
     }
   }
@@ -147,7 +147,7 @@ class RevealBase extends React.Component {
       this.setState({
         hasExited: true,
         collapse: this.props.collapse
-          ? { ...this.state.collapse, visibility: "hidden" }
+          ? { ...this.state.collapse, visibility: 'hidden' }
           : null,
         style: {
           /*...this.state.style, visibility: 'hidden'*/ opacity: 0,
@@ -182,13 +182,13 @@ class RevealBase extends React.Component {
     return (
       this.el.offsetHeight +
       parseInt(
-        window.getComputedStyle(this.el, null).getPropertyValue("margin-top"),
+        window.getComputedStyle(this.el, null).getPropertyValue('margin-top'),
         10
       ) +
       parseInt(
         window
           .getComputedStyle(this.el, null)
-          .getPropertyValue("margin-bottom"),
+          .getPropertyValue('margin-bottom'),
         10
       )
     );
@@ -224,7 +224,7 @@ class RevealBase extends React.Component {
     state.collapse = {
       height,
       transition: `height ${duration}ms ease ${delay}ms`, // padding ${duration}ms ease ${delay}ms, border ${duration}ms ease ${delay}ms`,
-      overflow: props.collapseOnly ? "hidden" : undefined,
+      overflow: props.collapseOnly ? 'hidden' : undefined,
       //margin: 0, padding: 0, border: '1px solid transparent',
       //boxSizing: 'border-box',
     };
@@ -237,10 +237,10 @@ class RevealBase extends React.Component {
     if (this.isShown === this.isOn) return;
     this.isShown = this.isOn;
     const leaving = !this.isOn && props.outEffect,
-      inOut = props[leaving ? "outEffect" : "inEffect"];
+      inOut = props[leaving ? 'outEffect' : 'inEffect'];
     //collapse = 'collapse' in props;
     let animationName =
-      ("style" in inOut && inOut.style.animationName) || void 0;
+      ('style' in inOut && inOut.style.animationName) || void 0;
     let state;
     if (!props.collapseOnly) {
       if ((props.outEffect || this.isOn) && inOut.make)
@@ -255,7 +255,7 @@ class RevealBase extends React.Component {
           ...inOut.style,
           animationDuration: `${inOut.duration}ms`,
           animationDelay: `${inOut.delay}ms`,
-          animationIterationCount: inOut.forever ? "infinite" : inOut.count,
+          animationIterationCount: inOut.forever ? 'infinite' : inOut.count,
           opacity: 1,
           //visibility: 'visible',
           animationName,
@@ -329,19 +329,19 @@ class RevealBase extends React.Component {
   componentDidMount() {
     if (!this.el || this.props.disabled) return;
     if (!this.props.collapseOnly) {
-      if ("make" in this.props.inEffect)
+      if ('make' in this.props.inEffect)
         this.props.inEffect.make(false, this.props);
       if (
         this.props.when !== undefined &&
         this.props.outEffect &&
-        "make" in this.props.outEffect
+        'make' in this.props.outEffect
       )
         this.props.outEffect.make(true, this.props);
     }
     const parentGroup = this.context?.transitionGroup;
     const appear =
       parentGroup && !parentGroup?.isMounting
-        ? !("enter" in this.props && this.props.enter === false)
+        ? !('enter' in this.props && this.props.enter === false)
         : this.props.appear;
 
     if (
@@ -373,7 +373,7 @@ class RevealBase extends React.Component {
       RevealBase.getTop(this.el) < window.pageYOffset + window.innerHeight
     ) {
       this.setState({
-        style: { opacity: 0, transition: "opacity 1000ms 1000ms" },
+        style: { opacity: 0, transition: 'opacity 1000ms 1000ms' },
       });
       window.setTimeout(() => this.reveal(this.props, true), 2000);
       return;
@@ -387,11 +387,11 @@ class RevealBase extends React.Component {
 
   cascade(children) {
     let newChildren;
-    if (typeof children === "string") {
-      newChildren = children.split("").map((ch, index) => (
+    if (typeof children === 'string') {
+      newChildren = children.split('').map((ch, index) => (
         <span
           key={index}
-          style={{ display: "inline-block", whiteSpace: "pre" }}
+          style={{ display: 'inline-block', whiteSpace: 'pre' }}
         >
           {ch}
         </span>
@@ -402,7 +402,7 @@ class RevealBase extends React.Component {
     //  return newChildren;
     let { duration, reverse } =
         this.props[
-          this.isOn || !this.props.outEffect ? "inEffect" : "outEffect"
+          this.isOn || !this.props.outEffect ? 'inEffect' : 'outEffect'
         ],
       count = newChildren.length,
       total = duration * 2;
@@ -414,7 +414,7 @@ class RevealBase extends React.Component {
     let i = reverse ? count : 0;
     //let i = 0;
     newChildren = newChildren.map((child) =>
-      typeof child === "object" && child //&& 'type' in child && typeof child.type === 'string'
+      typeof child === 'object' && child //&& 'type' in child && typeof child.type === 'string'
         ? React.cloneElement(child, {
             style: {
               ...child.props.style,
@@ -428,7 +428,7 @@ class RevealBase extends React.Component {
                     duration,
                     total
                   )
-                ) + "ms",
+                ) + 'ms',
             },
             //ref: i === count? (el => this.finalEl = el) : void 0,
           })
@@ -440,7 +440,7 @@ class RevealBase extends React.Component {
   static getInitialCollapseStyle(props) {
     return {
       height: 0,
-      visibility: props.when ? void 0 : "hidden",
+      visibility: props.when ? void 0 : 'hidden',
     };
   }
 
@@ -450,7 +450,7 @@ class RevealBase extends React.Component {
     if (
       !this.isOn &&
       props.onExited &&
-      "exit" in props &&
+      'exit' in props &&
       props.exit === false
     ) {
       props.onExited();
@@ -472,10 +472,10 @@ class RevealBase extends React.Component {
 
   getChild() {
     if (this.savedChild && !this.props.disabled) return this.savedChild;
-    if (typeof this.props.children === "object") {
+    if (typeof this.props.children === 'object') {
       const child = React.Children.only(this.props.children);
-      return ("type" in child && typeof child.type === "string") ||
-        this.props.refProp !== "ref" ? (
+      return ('type' in child && typeof child.type === 'string') ||
+        this.props.refProp !== 'ref' ? (
         child
       ) : (
         <div>{child}</div>
@@ -491,16 +491,16 @@ class RevealBase extends React.Component {
     const child = this.getChild();
     //if (this.props.disabled)
     //  return child;
-    if (typeof child.ref === "function") this.childRef = child.ref;
+    if (typeof child.ref === 'function') this.childRef = child.ref;
     let newChildren = false,
       { style, className, children } = child.props;
     let newClass = this.props.disabled
         ? className
-        : `${this.props.outEffect ? namespace : ""}${
-            this.state.className ? " " + this.state.className : ""
-          }${className ? " " + className : ""}` || void 0,
+        : `${this.props.outEffect ? namespace : ''}${
+            this.state.className ? ' ' + this.state.className : ''
+          }${className ? ' ' + className : ''}` || void 0,
       newStyle;
-    if (typeof this.state.style.animationName === "function")
+    if (typeof this.state.style.animationName === 'function')
       // todo: needs refactotoring
       this.state.style.animationName = this.state.style.animationName(
         !this.isOn,
@@ -600,37 +600,37 @@ class RevealBase extends React.Component {
   listen() {
     if (!observerMode && !this.isListener) {
       this.isListener = true;
-      window.addEventListener("scroll", this.revealHandler, { passive: true });
-      window.addEventListener("orientationchange", this.revealHandler, {
+      window.addEventListener('scroll', this.revealHandler, { passive: true });
+      window.addEventListener('orientationchange', this.revealHandler, {
         passive: true,
       });
-      window.document.addEventListener("visibilitychange", this.revealHandler, {
+      window.document.addEventListener('visibilitychange', this.revealHandler, {
         passive: true,
       });
-      window.document.addEventListener("collapseend", this.revealHandler, {
+      window.document.addEventListener('collapseend', this.revealHandler, {
         passive: true,
       });
-      window.addEventListener("resize", this.resizeHandler, { passive: true });
+      window.addEventListener('resize', this.resizeHandler, { passive: true });
     }
   }
 
   unlisten() {
     if (!observerMode && this.isListener) {
-      window.removeEventListener("scroll", this.revealHandler, {
+      window.removeEventListener('scroll', this.revealHandler, {
         passive: true,
       });
-      window.removeEventListener("orientationchange", this.revealHandler, {
+      window.removeEventListener('orientationchange', this.revealHandler, {
         passive: true,
       });
       window.document.removeEventListener(
-        "visibilitychange",
+        'visibilitychange',
         this.revealHandler,
         { passive: true }
       );
-      window.document.removeEventListener("collapseend", this.revealHandler, {
+      window.document.removeEventListener('collapseend', this.revealHandler, {
         passive: true,
       });
-      window.removeEventListener("resize", this.resizeHandler, {
+      window.removeEventListener('resize', this.resizeHandler, {
         passive: true,
       });
       this.isListener = false;
@@ -647,6 +647,6 @@ class RevealBase extends React.Component {
 RevealBase.propTypes = propTypes;
 RevealBase.defaultProps = defaultProps;
 RevealBase.contextTypes = contextTypes;
-RevealBase.displayName = "RevealBase";
+RevealBase.displayName = 'RevealBase';
 //RevealBase.childContextTypes = childContextTypes;
 export default RevealBase;

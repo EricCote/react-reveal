@@ -10,6 +10,9 @@
     "reactreveal",
     "scroll"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/rnosov/react-reveal"
@@ -20,7 +23,6 @@
   "homepage": "https://www.react-reveal.com",
   "main": "./index.js",
   "dependencies": {
-    "@babel/preset-env": "^7.19.1",
     "prop-types": "^15.5.10"
   },
   "peerDependencies": {
@@ -29,6 +31,7 @@
   "devDependencies": {
     "@babel/cli": "^7.18.10",
     "@babel/core": "^7.19.1",
+    "@babel/preset-env": "^7.19.1",
     "@babel/preset-react": "^7.5.0",
     "@mnajdova/enzyme-adapter-react-18": "^0.2.0",
     "babel-jest": "^29.0.3",
