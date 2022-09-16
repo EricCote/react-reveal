@@ -95,6 +95,6 @@ if (typeof window !== 'undefined' && window.name !== 'nodejs' && window.document
   }
 }
 
-export default function config({ ssrFadeout }) {
+export function configReveal({ ssrFadeout }) {
   fadeOutEnabled = ssrFadeout;
 }

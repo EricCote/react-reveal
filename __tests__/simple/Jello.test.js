@@ -11,7 +11,7 @@ import Jello from '../../Jello';
 import React from 'react';
 import { shallow } from 'enzyme';
 import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@mnajdova/enzyme-adapter-react-18';
 
 configure({ adapter: new Adapter() });
 

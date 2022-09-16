@@ -8,9 +8,9 @@
  */
 
 import React from 'react';
-import responsive from './responsive';
+import responsive from '../responsive';
 import makeIcon from './HamburgerIcon';
-import { animation } from './globals';
+import { animation } from '../globals';
 import Fade from './Fade';
 
 function hamburger(WrappedComponent, config = {} ) {

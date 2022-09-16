@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import withReveal from './withReveal';
+import withReveal from '../withReveal';
 
 function responsive( WrappedComponent, {effect, breakpoint = '768px', ...rest } = { breakpoint: '768px' } ) {
 
